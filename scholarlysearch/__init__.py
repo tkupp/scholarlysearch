@@ -9,5 +9,3 @@ for (key, value) in config.items('variables'):
     os.environ[key] = value
     
     
-# Testing, remove this
-print("ApiKey: " + os.environ.get('elsevier-api-key'))

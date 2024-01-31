@@ -8,6 +8,7 @@ class Elsevier_rest():
     
     def __init__(self, *args, **kwargs):
         
+        # TODO: Move hard coded URL to .env file
         self.baseurl = "https://api.elsevier.com/content/search/sciencedirect"
         self.apiKey = os.environ.get('elsevier-api-key')
         
@@ -24,7 +25,7 @@ class Elsevier_rest():
         
         data = response.json()
         
-        # process through the json to get what we want to show
+        # TODO: process through the json to get what we want to show
         
         # return context
         
