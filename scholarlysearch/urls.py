@@ -21,8 +21,7 @@ from django.urls import include
 
 
 urlpatterns = [
-    path("home/", include(('home.urls','home'), namespace='home')),
-    re_path(r'^$', include(('home.urls','home'), namespace='home')),
+    re_path(r'', include(('home.urls','home'), namespace='home')),
     path("admin/", admin.site.urls),
     re_path(r'search/', include(('search.urls','search'), namespace='search')),
 ]
