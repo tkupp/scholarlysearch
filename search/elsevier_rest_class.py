@@ -12,22 +12,56 @@ class Elsevier_rest():
         self.baseurl = "https://api.elsevier.com/content/search/sciencedirect"
         self.apiKey = os.environ.get('elsevier-api-key')
         
+        
     def basicQuery(self, q):
         
-        url = self.url
+        url = self.baseurl
         
         params = {
-            q: q,
-            apiKey: self.apiKey,
+            'query': q,
+            'apiKey': self.apiKey,
         }
         
         response = requests.request("GET", url, params=params)
-        
         data = response.json()
         
-        # TODO: process through the json to get what we want to show
+        # Populate variables, proof of concept, this needs significant rework to be fully viable.
+        totalResults = data['search-results']['opensearch:totalResults']
+        currentPage = data['search-results']['opensearch:startIndex']
+        pageSize = data['search-results']['opensearch:itemsPerPage']
+        entries = data['search-results']['entry']
         
-        # return context
+        
+        resultRows = []
+        
+        if int(totalResults) != 0:
+            for entry in entries:
+            
+                row = {
+                    "identifier": entry['dc:identifier'],
+                    "url": entry['prism:url'],
+                    "title": entry['dc:title'],
+                    "creator": entry['dc:creator'],
+                    "publication": entry['prism:publicationName'],
+                    "loadDate": entry['load-date'],
+                } 
+            
+                resultRows.append(row)
+            
+            
+            
+        context = {
+            'results': totalResults,
+            'currentPage': currentPage,
+            'pageSize': pageSize,
+            'resultRows': resultRows,
+        }
+        return context
+            
+            
+        
+        
+        
         
             
         
