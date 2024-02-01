@@ -21,6 +21,15 @@ The following python libraries are required as a minimum. More may be required d
 <li>django</li>
 <li>os</li>
 <li>django-bootstrap-v5</li>
+<li>simplejson</li>
+<li>json</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
 </ul>
 
 ## Running

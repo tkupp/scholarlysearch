@@ -1,0 +1,22 @@
+{% crsf_token %}
+{% load static %}
+<table style="border: 1px solid; width: 100%">
+    <tr>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Creator</th>
+        <th>Publication</th>
+        <th>Identifier</th>
+        <th>Url</th>
+    </tr>
+    {% for row in resultRows %}
+    <tr>
+        <td>{{loadDate}}</td>
+        <td>{{title}}</td>
+        <td>{{creator}}</td>
+        <td>{{publication}}</td>
+        <td>{{identifier}}</td>
+        <td>{{url}}</td>
+    </tr>
+    {% endfor %}
+</table>    
