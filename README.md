@@ -21,6 +21,8 @@ The following python libraries are required as a minimum. More may be required d
 <li>django</li>
 <li>os</li>
 <li>django-bootstrap-v5</li>
+<li>simplejson</li>
+<li>json</li>
 </ul>
 
 ## Running
@@ -38,3 +40,10 @@ If you need to run this on another port, just reference the port as follows:
 `python manage.py runserver 8010`
 
 To run in production you will need to use a WSGI enabled webserver like  Gunicorn, uWSGI or Apache with the mod_wsgi module installed. Installation of these applications is outside of the scope of this document.
+
+## Testing
+
+There are some unit tests enabled to test functionality. 
+To test type `python manage.py test` at the top level to run all tests.
+
+Reference the Django documentation for more details on testing. https://docs.djangoproject.com/en/5.0/topics/testing/overview/
