@@ -2,6 +2,7 @@ import os
 import simplejson
 import json
 import requests
+from datetime import datetime
 
 
 class Elsevier_rest():
@@ -17,6 +18,8 @@ class Elsevier_rest():
         
         url = self.baseurl
         
+        dateFormat = "%Y-%m-%dT%H:%M:%S.%fZ"    
+            
         params = {
             'query': q,
             'apiKey': self.apiKey,
@@ -37,13 +40,15 @@ class Elsevier_rest():
         if int(totalResults) != 0:
             for entry in entries:
             
+                loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
+            
                 row = {
                     "identifier": entry['dc:identifier'],
                     "url": entry['prism:url'],
                     "title": entry['dc:title'],
                     "creator": entry['dc:creator'],
                     "publication": entry['prism:publicationName'],
-                    "loadDate": entry['load-date'],
+                    "loadDate": loadDateTime.strftime('%y-%m-%d'),
                 } 
             
                 resultRows.append(row)
