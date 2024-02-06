@@ -18,7 +18,7 @@ class Arxiv_rest():
         
         url = self.baseurl
         
-        dateFormat = "%Y-%m-%dT%H:%M:%S.%fZ"    
+        dateFormat = "%Y-%m-%dT%H:%M:%SZ"    
             
         params = {
             'search_query': q,
@@ -26,31 +26,28 @@ class Arxiv_rest():
 
         response = requests.request("GET", url, params=params)
 
-        # Convert xml API output to json
-        data = json.dumps(xmltodict.parse(response.content))
-        
+        # Convert xml API output to dict
+        data = xmltodict.parse(response.content)
+
         # These will need to be reworked for the arxiv output.
 
-        # totalResults = data['search-results']['opensearch:totalResults']
-        # currentPage = data['search-results']['opensearch:startIndex']
-        # pageSize = data['search-results']['opensearch:itemsPerPage']
-        # entries = data['search-results']['entry']
-        
+        totalResults = data['feed']['opensearch:totalResults']['#text']
+        currentPage = data['feed']['opensearch:startIndex']['#text']
+        pageSize = data['feed']['opensearch:itemsPerPage']['#text']
+        entries = data['feed']['entry']
         
         resultRows = []
         
         if int(totalResults) != 0:
             for entry in entries:
             
-                loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
+                publishedDateTime = datetime.strptime(entry['published'], dateFormat)
             
                 row = {
-                    "identifier": entry['dc:identifier'],
-                    "url": entry['prism:url'],
-                    "title": entry['dc:title'],
-                    "creator": entry['dc:creator'],
-                    "publication": entry['prism:publicationName'],
-                    "loadDate": loadDateTime.strftime('%y-%m-%d'),
+                    "id": entry['id'],
+                    "title": entry['title'],
+                    "author": entry['author'],
+                    "published": publishedDateTime.strftime('%y-%m-%d'),
                 } 
             
                 resultRows.append(row)
