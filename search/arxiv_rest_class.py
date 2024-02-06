@@ -1,15 +1,16 @@
 import os
+import xmltodict
+import pprint
 import simplejson
 import json
 import requests
 from datetime import datetime
 
 
-class Elsevier_rest():
+class Arxiv_rest():
     
     def __init__(self, *args, **kwargs):
         
-        # TODO: Move hard coded URL to .env file
         self.baseurl = "http://export.arxiv.org/api/query"
         
         
@@ -22,17 +23,18 @@ class Elsevier_rest():
         params = {
             'search_query': q,
         }
-        
-        # API output is xml not json so all of the below needs to be reworked.
 
         response = requests.request("GET", url, params=params)
-        data = response.json()
+
+        # Convert xml API output to json
+        data = json.dumps(xmltodict.parse(response.content))
         
-        # Populate variables, proof of concept, this needs significant rework to be fully viable.
-        totalResults = data['search-results']['opensearch:totalResults']
-        currentPage = data['search-results']['opensearch:startIndex']
-        pageSize = data['search-results']['opensearch:itemsPerPage']
-        entries = data['search-results']['entry']
+        # These will need to be reworked for the arxiv output.
+
+        # totalResults = data['search-results']['opensearch:totalResults']
+        # currentPage = data['search-results']['opensearch:startIndex']
+        # pageSize = data['search-results']['opensearch:itemsPerPage']
+        # entries = data['search-results']['entry']
         
         
         resultRows = []
