@@ -14,7 +14,9 @@ class elsevierRestTestCase(TestCase):
         q = 'AI generative'
         context = self.factory.basicQuery(q) 
         
+
         print('Number of results from Elsevier basicQuery: ' + context['results'])
+
         
 class arxivRestTestCase(TestCase):
     
