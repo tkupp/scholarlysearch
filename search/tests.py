@@ -10,9 +10,11 @@ class elsevierRestTestCase(TestCase):
         
     def test_basicQuery(self): 
         
-        q = 'AI+generative'
+        q = 'AI generative'
         context = self.factory.basicQuery(q) 
         
+        print('')
         print('Number of results from basicQuery: ' + context['results'])
+        print('')
         
 
