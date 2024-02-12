@@ -1,5 +1,6 @@
-# Dependencies (list generated using pipreqs)
+# Dependencies
 Django==4.2.9
+djangorestframework==3.14.0
 django_rest_swagger==2.2.0
 Requests==2.31.0
 simplejson==3.19.2
