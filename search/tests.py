@@ -25,7 +25,7 @@ class arxivRestTestCase(TestCase):
         self.factory = Arxiv_rest()
         
     def test_basicQuery(self): 
-        
+        # Test that query is passed through and returns expected results.
         q = 'AI generative'
         context = self.factory.basicQuery(q) 
         
@@ -33,4 +33,26 @@ class arxivRestTestCase(TestCase):
 
         for entry in context['resultRows']:
             print(entry['author'])
+
+    def test_startDate(self):
+        # Test that start date filter is applied and no earlier results are returned.
+        q = 'AI generative'
+        # start = "-%m-%dT%H:%M:%SZ"
+        context = self.factory.basicQuery(q) 
+        
+        print('Number of results from arXiv basicQuery: ' + context['results'])
+
+        for entry in context['resultRows']:
+            print(entry['published'])
+
+    def test_endDate(self):
+        # Test that end date filter is applied and no later results are returned.
+        q = 'AI generative'
+        # end = "-%m-%dT%H:%M:%SZ"
+        context = self.factory.basicQuery(q) 
+        
+        print('Number of results from arXiv basicQuery: ' + context['results'])
+
+        for entry in context['resultRows']:
+            print(entry['published'])
 

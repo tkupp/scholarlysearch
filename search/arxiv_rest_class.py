@@ -1,8 +1,4 @@
-import os
 import xmltodict
-import pprint
-import simplejson
-import json
 import requests
 from datetime import datetime
 
@@ -14,7 +10,7 @@ class Arxiv_rest():
         self.baseurl = "http://export.arxiv.org/api/query"
         
         
-    def basicQuery(self, q):
+    def basicQuery(self, q, start, end):
         
         url = self.baseurl
         
@@ -29,8 +25,7 @@ class Arxiv_rest():
         # Convert xml API output to dict
         data = xmltodict.parse(response.content)
 
-        # These will need to be reworked for the arxiv output.
-
+        # Parse results data from dict
         totalResults = data['feed']['opensearch:totalResults']['#text']
         currentPage = data['feed']['opensearch:startIndex']['#text']
         pageSize = data['feed']['opensearch:itemsPerPage']['#text']
