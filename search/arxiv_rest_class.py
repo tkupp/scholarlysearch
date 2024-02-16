@@ -1,9 +1,6 @@
-import os
 import xmltodict
-import pprint
-import simplejson
-import json
 import requests
+from more_itertools import collapse
 from datetime import datetime
 
 
@@ -29,8 +26,7 @@ class Arxiv_rest():
         # Convert xml API output to dict
         data = xmltodict.parse(response.content)
 
-        # These will need to be reworked for the arxiv output.
-
+        # Parse results data from dict
         totalResults = data['feed']['opensearch:totalResults']['#text']
         currentPage = data['feed']['opensearch:startIndex']['#text']
         pageSize = data['feed']['opensearch:itemsPerPage']['#text']
@@ -39,14 +35,18 @@ class Arxiv_rest():
         resultRows = []
         
         if int(totalResults) != 0:
+            
             for entry in entries:
             
                 publishedDateTime = datetime.strptime(entry['published'], dateFormat)
             
+                # Method for getting multiple authors collapsed into a single list
+                authors = [d['name'] for d in collapse(entry['author'], base_type=dict)]
+
                 row = {
                     "id": entry['id'],
                     "title": entry['title'],
-                    "author": entry['author'],
+                    "author": authors,
                     "published": publishedDateTime.strftime('%y-%m-%d'),
                 } 
             

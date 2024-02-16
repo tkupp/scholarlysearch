@@ -14,7 +14,7 @@ class Elsevier_rest():
         self.apiKey = os.environ.get('elsevier-api-key')
         
         
-    def basicQuery(self, q):
+    def basic_query(self, q):
         
         url = self.baseurl
         
