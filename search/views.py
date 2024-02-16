@@ -9,22 +9,22 @@ from .elsevier_rest_class import Elsevier_rest
 def index(request):
     return render(request, 'search/main.html')
 
-def searchElsevier(request):
+def search_elsevier(request):
     rest = Elsevier_rest()
     
     q = request.GET.get('q')
     
-    context = rest.basicQuery(q)
+    context = rest.basic_query(q)
     
     return render(request, 'search/search_elsevier.html', context)
     
 @api_view(['GET'])
-def apiSearchElsevier(request):
+def api_search_elsevier(request):
     if request.method == 'GET':
         rest = Elsevier_rest()
     
         q = request.GET.get('q')
     
-        context = rest.basicQuery(q) 
+        context = rest.basic_query(q) 
         
         return Response(context)
