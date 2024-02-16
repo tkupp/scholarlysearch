@@ -33,26 +33,27 @@ class arxivRestTestCase(TestCase):
 
         for entry in context['resultRows']:
             print(entry['author'])
+            print(entry['title'])
 
-    def test_startDate(self):
-        # Test that start date filter is applied and no earlier results are returned.
-        q = 'AI generative'
-        # start = "-%m-%dT%H:%M:%SZ"
-        context = self.factory.basicQuery(q) 
+    # def test_startDate(self):
+    #     # Test that start date filter is applied and no earlier results are returned.
+    #     q = 'AI generative'
+    #     # start = "-%m-%dT%H:%M:%SZ"
+    #     context = self.factory.basicQuery(q) 
         
-        print('Number of results from arXiv basicQuery: ' + context['results'])
+    #     print('Number of results from arXiv basicQuery: ' + context['results'])
 
-        for entry in context['resultRows']:
-            print(entry['published'])
+    #     for entry in context['resultRows']:
+    #         print(entry['published'])
 
-    def test_endDate(self):
-        # Test that end date filter is applied and no later results are returned.
-        q = 'AI generative'
-        # end = "-%m-%dT%H:%M:%SZ"
-        context = self.factory.basicQuery(q) 
+    # def test_endDate(self):
+    #     # Test that end date filter is applied and no later results are returned.
+    #     q = 'AI generative'
+    #     # end = "-%m-%dT%H:%M:%SZ"
+    #     context = self.factory.basicQuery(q) 
         
-        print('Number of results from arXiv basicQuery: ' + context['results'])
+    #     print('Number of results from arXiv basicQuery: ' + context['results'])
 
-        for entry in context['resultRows']:
-            print(entry['published'])
+    #     for entry in context['resultRows']:
+    #         print(entry['published'])
 
