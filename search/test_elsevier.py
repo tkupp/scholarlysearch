@@ -18,3 +18,17 @@ class Elsevier_rest_tests(TestCase):
         # This query should always return results.
         self.assertTrue(number_results > 0)
         
+        
+    def test_advanced_query(self):
+        
+        q = 'AI generative'
+        num_pages = 100
+        start_page = 2
+        
+        context = self.factory.advanced_query(q, num_pages, start_page) 
+        
+        number_results = int(context['results'])
+        
+        # This query should always return results.
+        self.assertTrue(number_results > 0)    
+        
