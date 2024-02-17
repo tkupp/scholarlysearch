@@ -10,7 +10,15 @@ class Arxiv_rest():
         
         self.baseurl = "http://export.arxiv.org/api/query"
         
-        
+
+    def multiAuthor(self, authors):
+
+        # Method for getting multiple authors collapsed into a single list
+        author_list = [d['name'] for d in collapse(authors, base_type=dict)]
+
+        return author_list
+   
+   
     def basicQuery(self, q):
         
         url = self.baseurl
@@ -40,19 +48,16 @@ class Arxiv_rest():
             
                 publishedDateTime = datetime.strptime(entry['published'], dateFormat)
             
-                # Method for getting multiple authors collapsed into a single list
-                authors = [d['name'] for d in collapse(entry['author'], base_type=dict)]
+                author_entry = self.multiAuthor(entry['author'])
 
                 row = {
                     "id": entry['id'],
                     "title": entry['title'],
-                    "author": authors,
+                    "author": author_entry,
                     "published": publishedDateTime.strftime('%y-%m-%d'),
                 } 
             
                 resultRows.append(row)
-            
-            
             
         context = {
             'results': totalResults,
