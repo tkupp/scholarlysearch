@@ -11,4 +11,5 @@ try:
     
 except:
     # This is needed for GitHub Actions since .env is not available
-    
+
+    print("No .env file.")
