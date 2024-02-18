@@ -11,7 +11,7 @@ class Elsevier_rest():
         
         # TODO: Move hard coded URL to .env file
         self.baseurl = "https://api.elsevier.com/content/search/sciencedirect"
-        self.apiKey = os.environ.get('elsevier-api-key')
+        self.apiKey = os.environ.get('elsevier_api_key')
         
         
     def basic_query(self, q):
