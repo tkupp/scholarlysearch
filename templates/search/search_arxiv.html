@@ -1,0 +1,22 @@
+
+{% load static %}
+<table id=arxivQueryResultsTable" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Published</th>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in resultRows %}
+    <tr>
+        <td nowrap=nowrap>{{row.published}}</td>
+        <td>{{row.title}}</td>
+        <td>{{row.author}}</td>
+        <td>{{row.id}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>    
