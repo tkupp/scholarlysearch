@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'drf_yasg',
     "bootstrap5",
     "rest_framework",
-    "rest_framework_swagger",
     "home",
     "search",
 ]

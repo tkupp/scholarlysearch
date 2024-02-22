@@ -14,58 +14,7 @@ class Elsevier_rest():
         self.apiKey = os.environ.get('elsevier_api_key')
         
         
-    def basic_query(self, q):
-        
-        url = self.baseurl
-        
-        dateFormat = "%Y-%m-%dT%H:%M:%S.%fZ"    
-            
-        params = {
-            'query': q,
-            'apiKey': self.apiKey,
-        }
-        
-        response = requests.request("GET", url, params=params)
-        data = response.json()
-        
-        # Populate variables, proof of concept, this needs significant rework to be fully viable.
-        totalResults = data['search-results']['opensearch:totalResults']
-        currentPage = data['search-results']['opensearch:startIndex']
-        pageSize = data['search-results']['opensearch:itemsPerPage']
-        entries = data['search-results']['entry']
-        
-        
-        resultRows = []
-        
-        if int(totalResults) != 0:
-            for entry in entries:
-            
-                loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
-            
-                row = {
-                    "identifier": entry['dc:identifier'],
-                    "url": entry['prism:url'],
-                    "title": entry['dc:title'],
-                    "creator": entry['dc:creator'],
-                    "publication": entry['prism:publicationName'],
-                    "loadDate": loadDateTime.strftime('%y-%m-%d'),
-                } 
-            
-                resultRows.append(row)
-            
-            
-            
-        context = {
-            'results': totalResults,
-            'currentPage': currentPage,
-            'pageSize': pageSize,
-            'resultRows': resultRows,
-        }
-        return context
-            
-            
-        
-    def advanced_query(self, q, num_pages, start_page):
+    def query(self, q, num_pages=25, start_page=0):
         
         url = self.baseurl
         
@@ -79,41 +28,42 @@ class Elsevier_rest():
         }
         
         response = requests.request("GET", url, params=params)
-        data = response.json()
         
-        # Populate variables, proof of concept, this needs significant rework to be fully viable.
-        totalResults = data['search-results']['opensearch:totalResults']
-        currentPage = data['search-results']['opensearch:startIndex']
-        pageSize = data['search-results']['opensearch:itemsPerPage']
-        entries = data['search-results']['entry']
+        context = {}
         
+        if response.status_code == 200:
         
-        resultRows = []
+            data = response.json()
         
-        if int(totalResults) != 0:
-            for entry in entries:
+            totalResults = int(data['search-results']['opensearch:totalResults'])
+            currentPage = int(data['search-results']['opensearch:startIndex'])
+            pageSize = int(data['search-results']['opensearch:itemsPerPage'])
+            entries = data['search-results']['entry']
+        
+            resultRows = []
+        
+            if int(totalResults) != 0:
+                for entry in entries:
             
-                loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
+                    loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
             
-                row = {
-                    "identifier": entry['dc:identifier'],
-                    "url": entry['prism:url'],
-                    "title": entry['dc:title'],
-                    "creator": entry['dc:creator'],
-                    "publication": entry['prism:publicationName'],
-                    "loadDate": loadDateTime.strftime('%y-%m-%d'),
-                } 
+                    row = {
+                        "identifier": entry['dc:identifier'],
+                        "url": entry['prism:url'],
+                        "title": entry['dc:title'],
+                        "creator": entry['dc:creator'],
+                        "publication": entry['prism:publicationName'],
+                        "loadDate": loadDateTime.strftime('%y-%m-%d'),
+                    } 
             
-                resultRows.append(row)
+                    resultRows.append(row)
             
-            
-            
-        context = {
-            'results': totalResults,
-            'currentPage': currentPage,
-            'pageSize': pageSize,
-            'resultRows': resultRows,
-        }
+                context = {
+                    'results': totalResults,
+                    'currentPage': currentPage,
+                    'pageSize': pageSize,
+                    'resultRows': resultRows,
+                }
         return context
         
         
