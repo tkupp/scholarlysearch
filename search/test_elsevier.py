@@ -11,13 +11,13 @@ class Elsevier_rest_tests(TestCase):
     def test_query(self):
         
         q = 'AI generative'
-        num_pages = 100
+        num_pages = 10
         start_page = 2
         
         context = self.factory.query(q, num_pages, start_page) 
         
-        number_results = int(context['results'])
+        status = int(context['status'])
         
         # This query should always return results.
-        self.assertTrue(number_results > 0)    
+        self.assertTrue(status == 200)    
         

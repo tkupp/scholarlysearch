@@ -9,15 +9,14 @@ from rest_framework import status
 
 from .elsevier_rest_class import Elsevier_rest
 from .arxiv_rest_class import Arxiv_rest
-from .api_swagger import Elseiver_api_response
 
-q_param = openapi.Parameter('q', openapi.IN_QUERY, description="Enter search query", type=openapi.TYPE_STRING, required=True)
-num_pages_param = openapi.Parameter('num_pages', openapi.IN_QUERY, description="The number of pages to return", type=openapi.TYPE_INTEGER, required=False)
-start_page_param = openapi.Parameter('start_page', openapi.IN_QUERY, description="The page to start returning results from", type=openapi.TYPE_INTEGER, required=False)
 
 def index(request):
     return render(request, 'search/main.html')
 
+'''
+Document this
+'''
 def search_elsevier(request):
     rest = Elsevier_rest()
     
@@ -30,7 +29,6 @@ def search_elsevier(request):
     return render(request, 'search/search_elsevier.html', context)
     
 
-@swagger_auto_schema(method='get', manual_parameters=[q_param, num_pages_param, start_page_param], responses={200: Elseiver_api_response})
 @api_view(['GET'])
 def api_search_elsevier(request):
     if request.method == 'GET':

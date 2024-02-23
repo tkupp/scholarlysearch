@@ -29,7 +29,9 @@ class Elsevier_rest():
         
         response = requests.request("GET", url, params=params)
         
-        context = {}
+        context = {
+            "status": response.status_code,
+        }
         
         if response.status_code == 200:
         
@@ -46,19 +48,23 @@ class Elsevier_rest():
                 for entry in entries:
             
                     loadDateTime = datetime.strptime(entry['load-date'], dateFormat)
+                    
+                    try:
+                        row = {
+                            "identifier": entry['dc:identifier'],
+                            "url": entry['prism:url'],
+                            "title": entry['dc:title'],
+                            "creator": entry['dc:creator'],
+                            "publication": entry['prism:publicationName'],
+                            "loadDate": loadDateTime.strftime('%y-%m-%d'),
+                        } 
             
-                    row = {
-                        "identifier": entry['dc:identifier'],
-                        "url": entry['prism:url'],
-                        "title": entry['dc:title'],
-                        "creator": entry['dc:creator'],
-                        "publication": entry['prism:publicationName'],
-                        "loadDate": loadDateTime.strftime('%y-%m-%d'),
-                    } 
-            
-                    resultRows.append(row)
+                        resultRows.append(row)
+                    except KeyError:
+                        continue    
             
                 context = {
+                    'status': response.status_code,
                     'results': totalResults,
                     'currentPage': currentPage,
                     'pageSize': pageSize,
