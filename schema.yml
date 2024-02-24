@@ -7,6 +7,23 @@ paths:
   /search/api/arxiv:
     get:
       operationId: arxiv_retrieve
+      parameters:
+      - in: query
+        name: num_pages
+        schema:
+          type: integer
+        description: The number of results to return.
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: The search string
+        required: true
+      - in: query
+        name: start_page
+        schema:
+          type: integer
+        description: Where you want the results to start from.
       tags:
       - arxiv
       security:
@@ -15,7 +32,26 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                ExampleArXivSearch:
+                  value:
+                    results: 757384
+                    currentPage: 0
+                    pageSize: 10
+                    resultRows:
+                    - id: https://arxiv.org/abs/2101.04283v1
+                      title: A Brief Survey of Associations Between Meta-Learning
+                        and General AI
+                      author: Bin Liu
+                      published: '2021-01-12T03:57:16Z'
+                  summary: The results for an arXiv search
+                  description: Example arXiv Search
+          description: ''
   /search/api/elsevier:
     get:
       operationId: elsevier_retrieve
