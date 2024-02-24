@@ -8,6 +8,9 @@ from . import views
 
 app_name = "search"
 
+'''
+Entry points for the 'search' application.
+'''
 urlpatterns = [
     re_path(r'^$', views.index, name='main'),
     path("searchElsevier", views.search_elsevier, name='searchElsevier'),

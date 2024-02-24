@@ -10,12 +10,14 @@ from drf_spectacular.types import OpenApiTypes
 from .elsevier_rest_class import Elsevier_rest
 from .arxiv_rest_class import Arxiv_rest
 
-
+'''
+The main page for the 'search' application.
+'''
 def index(request):
     return render(request, 'search/main.html')
 
 '''
-Document this
+Pulls up the UI page for 'Elsevier' searching. 
 '''
 def search_elsevier(request):
     rest = Elsevier_rest()
@@ -29,6 +31,10 @@ def search_elsevier(request):
     return render(request, 'search/search_elsevier.html', context)
     
 
+'''
+The '@extend_schema decorator to generate the schema for swagger. 
+This schema represents the Elseiver API search endpoint. 
+'''
 @extend_schema( 
         parameters=[
             OpenApiParameter( 
@@ -83,7 +89,7 @@ def search_elsevier(request):
         ],
     ) 
 @api_view(['GET'])
-def api_search_elsevier(request):
+def api_search_elsevier(request): 
     if request.method == 'GET':
         rest = Elsevier_rest()
     
@@ -95,6 +101,10 @@ def api_search_elsevier(request):
         
         return Response(context)
     
+    
+'''
+Pulls up the UI page for 'Arxiv' searching. 
+'''    
 def search_arxiv(request):
     rest = Arxiv_rest()
     
@@ -105,6 +115,10 @@ def search_arxiv(request):
     return render(request, 'search/search_arxiv.html', context)
 
 
+'''
+The '@extend_schema decorator to generate the schema for swagger. 
+This schema represents the arXiv API search endpoint. 
+'''
 @extend_schema( 
     parameters=[
         OpenApiParameter( 
