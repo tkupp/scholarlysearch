@@ -115,6 +115,60 @@ def search_arxiv(request):
     return render(request, 'search/search_arxiv.html', context)
 
 
+'''
+The '@extend_schema decorator to generate the schema for swagger. 
+This schema represents the arXiv API search endpoint. 
+'''
+@extend_schema( 
+    parameters=[
+        OpenApiParameter( 
+            name='q', 
+            type={'type': 'string'}, 
+            description="The search string",
+            location=OpenApiParameter.QUERY, 
+            required=True, 
+        ),
+        OpenApiParameter( 
+            name='num_pages', 
+            type={'type': 'integer'}, 
+            description="The number of results to return.",
+            location=OpenApiParameter.QUERY, 
+            required=False, 
+        ),
+        OpenApiParameter( 
+            name='start_page', 
+            type={'type': 'integer'}, 
+            description="Where you want the results to start from.",
+            location=OpenApiParameter.QUERY, 
+            required=False, 
+        ),
+    ], 
+    responses={
+        200: OpenApiTypes.OBJECT
+    },
+    examples=[
+        OpenApiExample(
+            name="Example arXiv Search",
+            summary="The results for an arXiv search",
+            description="Example arXiv Search",
+            value={
+                "results": 757384,
+                "currentPage": 0,
+                "pageSize": 10,
+                "resultRows": [
+                    {
+                        "id": "https://arxiv.org/abs/2101.04283v1",
+                        "title": "A Brief Survey of Associations Between Meta-Learning and General AI",
+                        "author": "Bin Liu",
+                        "published": "2021-01-12T03:57:16Z",
+                    },
+                ]
+                
+            },
+        response_only=True
+        )
+    ],
+) 
 @api_view(['GET'])
 def api_search_arxiv(request):
     if request.method == 'GET':
