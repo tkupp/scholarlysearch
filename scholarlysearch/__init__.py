@@ -1,6 +1,10 @@
 import os
 import configparser
 
+'''
+Read and initialize environment variables from the .env file.
+Used to securely store sensitive information.
+'''
 config = configparser.ConfigParser()
 
 config.read(os.path.join(os.path.dirname(__file__), '.env'))
