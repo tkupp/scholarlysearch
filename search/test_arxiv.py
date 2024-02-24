@@ -10,6 +10,7 @@ class arxiv_rest_tests(TestCase):
         
     def test_basic_query(self): 
 
+        # Test to ensure query successfully returns results from the API
         q = 'AI generative'
         context = self.factory.basicQuery(q)
                 
@@ -20,6 +21,8 @@ class arxiv_rest_tests(TestCase):
 
     def test_single_author(self):
 
+        # Test checks that the multiAuthor method correctly returns a list of only one author
+        # when given a dict containing one author under the 'name' key
         example_author = [{'name' : 'Bin Liu'}]
         author_test = self.factory.multiAuthor(example_author)
                 
@@ -29,14 +32,14 @@ class arxiv_rest_tests(TestCase):
         self.assertTrue(number_authors == 1)
 
     def test_multiple_authors(self):
-
+        
+        # Test checks that the multiAuthor method correctly returns a list of four authors
+        # when given a dict containing four authors under the 'name' key
         example_authors = [{'name' : 'Aastha Pant'}, {'name' : 'Rashina Hoda'}, {'name' : 'Simone V. Spiegler'}, {'name' : 'Chakkrit Tantithamthavorn'}]
 
         author_test = self.factory.multiAuthor(example_authors)
                 
         number_authors = len(author_test)
-        
-        # print('Author list: ' + ', '.join(author_test))
         
         # This should return exactly four results.
         self.assertTrue(number_authors == 4)

@@ -13,7 +13,8 @@ class Arxiv_rest():
 
     def multiAuthor(self, authors):
 
-        # Method for getting multiple authors collapsed into a single list
+        # Method takes multiple authors returned from the xml to dict conversion
+        # and collapses them into a list for easier handling
         author_list = [d['name'] for d in collapse(authors, base_type=dict)]
 
         return author_list
@@ -31,10 +32,9 @@ class Arxiv_rest():
 
         response = requests.request("GET", url, params=params)
 
-        # Convert xml API output to dict
+        # Converts xml API output to dict for easier processing
         data = xmltodict.parse(response.content)
 
-        # Parse results data from dict
         totalResults = data['feed']['opensearch:totalResults']['#text']
         currentPage = data['feed']['opensearch:startIndex']['#text']
         pageSize = data['feed']['opensearch:itemsPerPage']['#text']
