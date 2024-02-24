@@ -10,12 +10,14 @@ from drf_spectacular.types import OpenApiTypes
 from .elsevier_rest_class import Elsevier_rest
 from .arxiv_rest_class import Arxiv_rest
 
-
+'''
+The main page for the 'search' application.
+'''
 def index(request):
     return render(request, 'search/main.html')
 
 '''
-Document this
+Pulls up the UI page for 'Elsevier' searching. 
 '''
 def search_elsevier(request):
     rest = Elsevier_rest()
@@ -29,6 +31,10 @@ def search_elsevier(request):
     return render(request, 'search/search_elsevier.html', context)
     
 
+'''
+The '@extend_schema decorator to generate the schema for swagger. 
+This schema represents the Elseiver API search endpoint. 
+'''
 @extend_schema( 
         parameters=[
             OpenApiParameter( 
@@ -83,7 +89,7 @@ def search_elsevier(request):
         ],
     ) 
 @api_view(['GET'])
-def api_search_elsevier(request):
+def api_search_elsevier(request): 
     if request.method == 'GET':
         rest = Elsevier_rest()
     
@@ -95,6 +101,10 @@ def api_search_elsevier(request):
         
         return Response(context)
     
+    
+'''
+Pulls up the UI page for 'Arxiv' searching. 
+'''    
 def search_arxiv(request):
     rest = Arxiv_rest()
     
@@ -103,7 +113,62 @@ def search_arxiv(request):
     context = rest.basicQuery(q)
     
     return render(request, 'search/search_arxiv.html', context)
-    
+
+
+'''
+The '@extend_schema decorator to generate the schema for swagger. 
+This schema represents the arXiv API search endpoint. 
+'''
+@extend_schema( 
+    parameters=[
+        OpenApiParameter( 
+            name='q', 
+            type={'type': 'string'}, 
+            description="The search string",
+            location=OpenApiParameter.QUERY, 
+            required=True, 
+        ),
+        OpenApiParameter( 
+            name='num_pages', 
+            type={'type': 'integer'}, 
+            description="The number of results to return.",
+            location=OpenApiParameter.QUERY, 
+            required=False, 
+        ),
+        OpenApiParameter( 
+            name='start_page', 
+            type={'type': 'integer'}, 
+            description="Where you want the results to start from.",
+            location=OpenApiParameter.QUERY, 
+            required=False, 
+        ),
+    ], 
+    responses={
+        200: OpenApiTypes.OBJECT
+    },
+    examples=[
+        OpenApiExample(
+            name="Example arXiv Search",
+            summary="The results for an arXiv search",
+            description="Example arXiv Search",
+            value={
+                "results": 757384,
+                "currentPage": 0,
+                "pageSize": 10,
+                "resultRows": [
+                    {
+                        "id": "https://arxiv.org/abs/2101.04283v1",
+                        "title": "A Brief Survey of Associations Between Meta-Learning and General AI",
+                        "author": "Bin Liu",
+                        "published": "2021-01-12T03:57:16Z",
+                    },
+                ]
+                
+            },
+        response_only=True
+        )
+    ],
+) 
 @api_view(['GET'])
 def api_search_arxiv(request):
     if request.method == 'GET':

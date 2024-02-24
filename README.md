@@ -45,3 +45,11 @@ There are some unit tests enabled to test functionality.
 To test type `python manage.py test` at the top level to run all tests.
 
 Reference the Django documentation for more details on testing. https://docs.djangoproject.com/en/5.0/topics/testing/overview/
+
+## How to report a bug or request a feature
+
+First check the list of currently open [Issues](https://github.com/tkupp/scholarlysearch/issues) to make sure the bug or feature has not already been captured. If not, please submit a new issue!
+ 
+## How to contribute
+
+If you are interested in contributing to the project, please filter the open [Issues](https://github.com/tkupp/scholarlysearch/issues) by “good first issue” and/or “help wanted” to get started.
