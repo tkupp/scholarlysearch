@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Scholarly Search API
+  version: 1.0.0
+  description: Tools to search various scholarly sites
+paths:
+  /search/api/arxiv:
+    get:
+      operationId: arxiv_retrieve
+      tags:
+      - arxiv
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /search/api/elsevier:
+    get:
+      operationId: elsevier_retrieve
+      parameters:
+      - in: query
+        name: num_pages
+        schema:
+          type: integer
+        description: The number of results to return.
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: The search string
+        required: true
+      - in: query
+        name: start_page
+        schema:
+          type: integer
+        description: Where you want the results to start from.
+      tags:
+      - elsevier
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                ExampleElsevierSearch:
+                  value:
+                    status: 200
+                    results: 16128
+                    currentPage: 0
+                    pageSize: 1
+                    resultRows:
+                    - identifier: DOI:10.1016/j.infoandorg.2024.100503
+                      url: https://api.elsevier.com/content/article/pii/S1471772724000034
+                      title: 'Generative mechanisms of AI implementation: A critical
+                        realist perspective on predictive maintenance'
+                      creator: Alexander Stohr
+                      publication: Information and Organization
+                      loadDate: 24-02-21
+                  summary: The results for an Elsevier search
+                  description: Example Elsevier Search
+          description: ''
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
