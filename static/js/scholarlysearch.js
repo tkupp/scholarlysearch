@@ -2,10 +2,18 @@
  * JavaScript to support Scholarly Search
  */
 
+/**
+ * This function executes upon page load up.
+ */
 $(document).ready( function() {
      setup();
 });
 
+/**
+ * Setup listeners and actions for the Scholarly Search UI page. 
+ * This sets up the tab functionality. 
+ * 
+ */
 function setup() {
 
     // Kill any existing listeners.
@@ -26,21 +34,25 @@ function setup() {
         loadSearch();
       })
 
-      $('#contact-tab').on("click", function (e) {
+      $('#documentation-tab').on("click", function (e) {
         e.preventDefault()
-        $(this).tab('show')
+        $(this).tab('show');
       })
 
 }
 
+/**
+ *  Load up the 'search' UI page and return the content to the 'search-content' div
+ */
 function loadSearch() {
 
+    // Empty out the existing div content.
     $("#search-content").html("");
 
     var url = "search/";
-
     var data = {};
 
+    // Call the url and load the page into the search-content div
     $.ajax({
         url: url,
         cache: false
@@ -50,3 +62,4 @@ function loadSearch() {
     });
 
 }
+
