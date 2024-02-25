@@ -23,6 +23,8 @@ The following python libraries are required as a minimum. More may be required d
 <li>simplejson</li>
 </ul>
 
+Reference the included requirements.txt for a current list.
+
 ## Running
 To start the application do the following:
 
@@ -53,3 +55,12 @@ First check the list of currently open [Issues](https://github.com/tkupp/scholar
 ## How to contribute
 
 If you are interested in contributing to the project, please filter the open [Issues](https://github.com/tkupp/scholarlysearch/issues) by “good first issue” and/or “help wanted” to get started.
+
+## API Documentation
+
+This is provided on the swagger page. Reference the link on the documentation tab on the main UI page. As a general rule it is located under 
+
+`http://localhost:8000/search/api/schema/swagger-ui/`
+
+Your base url may vary based on your installation.
+
