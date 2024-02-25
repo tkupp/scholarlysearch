@@ -41,6 +41,21 @@ If you need to run this on another port, just reference the port as follows:
 
 To run in production you will need to use a WSGI enabled webserver like  Gunicorn, uWSGI or Apache with the mod_wsgi module installed. Installation of these applications is outside of the scope of this document.
 
+## Usage
+
+It should be noted that this product is in the pre-Alpha stage, and as such most extended functionality is limited. 
+
+You can utilize the UI from the search tab for limited results. Enter a search string in the field and press the `run` button to see a subset of the results. For Elsevier the results are limited to 25 results, starting with the first result. For Arxiv, the results are limited to 25 results, starting with the first result.
+
+This application is better suited to be consumed via the provided REST API endpoints. From the main page click on the documentation tab to pull up a swagger page in a new tab. 
+
+For searching against the Elsevier data, this link from Elseiver provides tips on searching.
+https://dev.elsevier.com/sc_search_tips.html
+
+For searching against Arxiv data, Arvix utilizes boolean `AND, OR, ANDNOT` searching logic. More detail is available on teh Arxiv site at,
+https://info.arxiv.org/help/api/user-manual.html#detailed_examples
+ 
+
 ## Testing
 
 There are some unit tests enabled to test functionality. 
