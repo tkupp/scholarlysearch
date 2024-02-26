@@ -25,6 +25,11 @@ The following python libraries are required as a minimum. More may be required d
 
 Reference the included requirements.txt for a current list.
 
+## Environments setup.
+
+Please reference the included sample .env file provided in  the following location,
+`scholarlysearch\example.env`  Instructions for setup are included in that file.
+
 ## Running
 To start the application do the following:
 
