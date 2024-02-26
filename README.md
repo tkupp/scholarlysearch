@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10713695.svg)](https://doi.org/10.5281/zenodo.10713695)
+
 # Scholarly Search
 
 ## A project for CAS 502: Computation
