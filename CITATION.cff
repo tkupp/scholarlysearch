@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Terry"
+  given-names: "Bill"
+- family-names: "Kupp"
+  given-names: "Travis"
+title: "Scholarly Search"
+version: 0.1.0-alpha
+doi: 10.5281/zenodo.10713695
+date-released: 2024-02-26
+url: "https://github.com/tkupp/scholarlysearch"
